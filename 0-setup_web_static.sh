@@ -1,14 +1,41 @@
 #!/usr/bin/env bash
-# set up web server for webstatic deployment
+# Sets up directories, ownerships, and links for web static deployment
+
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
-echo y | sudo ufw enable
-sudo mkdir -p /data/web_static/releases/test
-sudo mkdir -p /data/web_static/shared
-echo '<html>Holberton Scool</html>' | sudo tee /data/web_static/releases/test/index.html
-sudo ln -fsn /data/web_static/releases/test/ /data/web_static/current
-sudo chown -R ubuntu:ubuntu /data
-location='location /hbnb_static/ { alias /data/web_static/current/; }'
-sudo sed -i "/listen \[::\]:80 default_server;/a $location" /etc/nginx/sites-enabled/default
+
+if [ ! -d "/data/" ]
+then
+    sudo mkdir /data
+fi
+
+if [ ! -d "/data/web_static/" ]
+then
+    sudo mkdir /data/web_static
+fi
+
+if [ ! -d "/data/web_static/releases" ]
+then
+    sudo mkdir /data/web_static/releases
+fi
+
+if [ ! -d "/data/web_static/shared" ]
+then
+    sudo mkdir /data/web_static/shared
+fi
+
+if [ ! -d "/data/web_static/releases/test/" ]
+then
+    sudo mkdir /data/web_static/releases/test/
+fi
+
+sudo bash -c 'echo "<html>Holberton School</html>" > /data/web_static/releases/test/index.html'
+
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+
+sudo chown -R ubuntu:ubuntu /data/
+
+insertline="location /hbnb_static {\n\t\talias /data/web_static/current;\n\t}"
+sudo sed -i "s@# pass the PHP@$insertline\n\n\t# pass the PHP@" /etc/nginx/sites-available/default
 sudo service nginx restart
