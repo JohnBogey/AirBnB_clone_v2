@@ -31,8 +31,8 @@ def do_deploy(archive_path):
         run("rm /tmp/{}".format(name_ex))
         run("mv /data/web_static/releases/{}/web_static/* \
             /data/web_static/releases/{}/".format(name, name))
-        run("rm -rf /data/web_static/releases/{}/web_static".format(name))
-        run("rm -rf /data/web_static/current")
+        run("rmdir /data/web_static/releases/{}/web_static".format(name))
+        run("rm /data/web_static/current")
         run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
             .format(name))
         return True
