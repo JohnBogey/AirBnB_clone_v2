@@ -2,7 +2,6 @@
 # set up web server for webstatic deployment
 sudo apt-get -y update
 sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
 echo '<html>Holberton Scool</html>' | sudo tee /data/web_static/releases/test/index.html
