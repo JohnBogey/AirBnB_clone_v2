@@ -3,7 +3,6 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
-echo y | sudo ufw enable
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
 echo '<html>Holberton Scool</html>' | sudo tee /data/web_static/releases/test/index.html
