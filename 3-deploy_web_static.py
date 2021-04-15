@@ -7,13 +7,15 @@ from datetime import datetime
 
 env.hosts = ['35.237.13.104', '34.75.145.253']
 
+
 def do_pack():
     '''packs webstatic'''
     now = datetime.now().strftime("%Y%m%d%I%M%S")
     local("mkdir -p versions")
     local("tar -cvzf versions/web_static_{}.tgz web_static"
           .format(now))
-    return "versions/web_static_{}.tgz".format(now))
+    return "versions/web_static_{}.tgz".format(now)
+
 
 def do_deploy(archive_path):
     ''' deploys webstatic '''
@@ -36,6 +38,7 @@ def do_deploy(archive_path):
         return True
     except Exception as e:
         return False
+
 
 def deploy():
     '''calls previous functions to do everything'''
