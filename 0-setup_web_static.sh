@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 # set up web server for webstatic deployment
 sudo apt-get -y update
-if ! command -v nginx &> /dev/null
-then
-  sudo apt-get -y install nginx
-  sudo ufw default allow
-  sudo ufw allow 'Nginx HTTP'
-  echo y | sudo ufw enable
-fi
+sudo apt-get -y install nginx
 sudo mkdir -p /data/web_static/releases/test/
+sudo mkdir -p /data/web_static/shared/
 sudo printf '%s\n' \
 '<html>' \
 '  <head>' \
@@ -18,7 +13,6 @@ sudo printf '%s\n' \
 '  </body>' \
 '</html>' \
 |sudo tee /data/web_static/releases/test/index.html
-sudo mkdir -p /data/web_static/shared/
 sudo ln -fsn /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 
