@@ -69,6 +69,8 @@
 	padding-top: 10px;
 	padding-bottom: 30px;
 	background-color: white;
+	max-height: 300px;
+	overflow: auto;
   }
   
   .popover ul, li {
